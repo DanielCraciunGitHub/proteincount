@@ -11,8 +11,7 @@ export async function sendEmail(
   body: ReactNode
 ) {
   const { error } = await resend.emails.send({
-    // ? Change this name
-    from: "DevMarket <hello@devmarket.pro>",
+    from: "ProteinCount <hello@proteincount.vercel.app>",
     to: recipient,
     subject,
     react: body,
