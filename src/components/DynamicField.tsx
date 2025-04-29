@@ -71,6 +71,126 @@ export const DynamicField = ({
                       </div>
                     </div>
                   );
+                case "heightInput":
+                  return (
+                    <div className="space-y-2">
+                      <ToggleGroup
+                        type="single"
+                        variant="outline"
+                        value={(formField.value as any)?.unit || "metric"}
+                        onValueChange={(value) => {
+                          formField.onChange({
+                            ...(formField.value as any),
+                            unit: value,
+                          });
+                        }}
+                      >
+                        <ToggleGroupItem value="cm" size="sm">
+                          cm
+                        </ToggleGroupItem>
+                        <ToggleGroupItem value="feet" size="sm">
+                          feet
+                        </ToggleGroupItem>
+                      </ToggleGroup>
+
+                      {(formField.value as any)?.unit === "feet" ? (
+                        <div className="flex items-center gap-2">
+                          <Input
+                            type="number"
+                            placeholder="Feet"
+                            value={(formField.value as any)?.feet || ""}
+                            onChange={(e) => {
+                              formField.onChange({
+                                ...(formField.value as any),
+                                feet: e.target.value,
+                              });
+                            }}
+                          />
+                          <Input
+                            type="number"
+                            placeholder="Inches"
+                            value={(formField.value as any)?.inches || ""}
+                            onChange={(e) => {
+                              formField.onChange({
+                                ...(formField.value as any),
+                                inches: e.target.value,
+                              });
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-2">
+                          <Input
+                            type="number"
+                            placeholder="Height"
+                            value={(formField.value as any)?.cm || ""}
+                            onChange={(e) => {
+                              formField.onChange({
+                                ...(formField.value as any),
+                                cm: e.target.value,
+                              });
+                            }}
+                          />
+                          <span>cm</span>
+                        </div>
+                      )}
+                    </div>
+                  );
+                case "weightInput":
+                  return (
+                    <div className="space-y-2">
+                      <ToggleGroup
+                        type="single"
+                        variant="outline"
+                        value={(formField.value as any)?.unit || "metric"}
+                        onValueChange={(value) => {
+                          formField.onChange({
+                            ...(formField.value as any),
+                            unit: value,
+                          });
+                        }}
+                      >
+                        <ToggleGroupItem value="kg" size="sm">
+                          kg
+                        </ToggleGroupItem>
+                        <ToggleGroupItem value="lbs" size="sm">
+                          lbs
+                        </ToggleGroupItem>
+                      </ToggleGroup>
+
+                      {(formField.value as any)?.unit === "lbs" ? (
+                        <div className="flex items-center gap-2">
+                          <Input
+                            type="number"
+                            placeholder="Pounds"
+                            value={(formField.value as any)?.pounds || ""}
+                            onChange={(e) => {
+                              formField.onChange({
+                                ...(formField.value as any),
+                                pounds: e.target.value,
+                              });
+                            }}
+                          />
+                          <span>lbs</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-2">
+                          <Input
+                            type="number"
+                            placeholder="Weight"
+                            value={(formField.value as any)?.kg || ""}
+                            onChange={(e) => {
+                              formField.onChange({
+                                ...(formField.value as any),
+                                kg: e.target.value,
+                              });
+                            }}
+                          />
+                          <span>kg</span>
+                        </div>
+                      )}
+                    </div>
+                  );
                 case "toggle-group":
                   return (
                     <ToggleGroup

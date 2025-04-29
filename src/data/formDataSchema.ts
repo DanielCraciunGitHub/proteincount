@@ -13,7 +13,9 @@ export type FormDataItem = {
     | "divider"
     | "textarea"
     | "allergiesDropdown"
-    | "slider";
+    | "slider"
+    | "heightInput"
+    | "weightInput";
   label: string;
   options?: string[];
   placeholder?: string;
@@ -44,12 +46,12 @@ export const formDataSchema: FormDataItem[] = [
   },
   {
     key: "height",
-    type: "number",
+    type: "heightInput",
     label: "Height",
   },
   {
     key: "weight",
-    type: "number",
+    type: "weightInput",
     label: "Weight",
   },
   {

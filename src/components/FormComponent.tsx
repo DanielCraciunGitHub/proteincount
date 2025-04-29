@@ -26,8 +26,17 @@ export function FormComponent() {
       activityLevel: "sedentary",
       dietType: "no diet",
       gender: "male",
-      height: 0,
-      weight: 0,
+      height: {
+        unit: "cm",
+        cm: 0,
+        feet: 0,
+        inches: 0,
+      },
+      weight: {
+        unit: "kg",
+        kg: 0,
+        pounds: 0,
+      },
       meals: [],
     },
   });
@@ -36,6 +45,9 @@ export function FormComponent() {
     console.log(data);
     router.push("/results");
   };
+
+  const formData = form.watch();
+  console.log(formData.weight, formData.height);
 
   return (
     <Form {...form}>

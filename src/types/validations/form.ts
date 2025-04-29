@@ -10,8 +10,17 @@ export const formStateSchema = z.object({
     "active",
     "veryActive",
   ]),
-  height: z.number(),
-  weight: z.number(),
+  height: z.object({
+    unit: z.enum(["cm", "feet"]),
+    feet: z.number(),
+    inches: z.number(),
+    cm: z.number(),
+  }),
+  weight: z.object({
+    unit: z.enum(["kg", "lbs"]),
+    pounds: z.number(),
+    kg: z.number(),
+  }),
   dietType: z.enum([
     "vegetarian",
     "vegan",
