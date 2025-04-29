@@ -13,8 +13,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
-        <Providers attribute="class" defaultTheme="system" enableSystem>
+      <body className="relative flex min-h-screen flex-col">
+        <Providers
+          attribute="class"
+          defaultTheme="light"
+          forcedTheme="light"
+        >
           {children}
         </Providers>
         {/* ? Google Analytics */}
