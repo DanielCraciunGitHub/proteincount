@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import {
+  formDataSchema,
   mealsSectionSchema,
   metricsSchema,
   personalInfoSchema,
@@ -86,6 +87,15 @@ export function FormComponent() {
 
           {state.matches("meal_questions") &&
             mealsSectionSchema.map((field, index) => (
+              <DynamicField
+                key={`${field.key}-${index}`}
+                fieldData={field}
+                form={form}
+              />
+            ))}
+
+          {state.matches("confirm") &&
+            formDataSchema.map((field, index) => (
               <DynamicField
                 key={`${field.key}-${index}`}
                 fieldData={field}
