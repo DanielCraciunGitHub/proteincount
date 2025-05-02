@@ -12,7 +12,7 @@ export type FormDataItem = {
     | "mealsInput"
     | "divider"
     | "textarea"
-    | "allergiesDropdown"
+    | "allergiesToggle"
     | "slider"
     | "heightInput"
     | "weightInput";
@@ -76,6 +76,11 @@ export const metricsSchema: FormDataItem[] = [
       "no diet",
       "carnivore",
     ],
+  },
+  {
+    key: "allergies",
+    type: "allergiesToggle",
+    label: "Allergies",
   },
 ];
 

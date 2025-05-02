@@ -136,6 +136,28 @@ export const DynamicField = ({
                       )}
                     </div>
                   );
+                case "allergiesToggle":
+                  return (
+                    <ToggleGroup
+                      type="multiple"
+                      value={formField.value as string[]}
+                      onValueChange={formField.onChange}
+                      defaultValue={formField.value as string[]}
+                      className="flex flex-wrap gap-2 justify-center"
+                    >
+                      <ToggleGroupItem value="nuts">Nuts</ToggleGroupItem>
+                      <ToggleGroupItem value="gluten">
+                        Gluten
+                      </ToggleGroupItem>
+                      <ToggleGroupItem value="dairy">
+                        Dairy
+                      </ToggleGroupItem>
+                      <ToggleGroupItem value="soy">Soy</ToggleGroupItem>
+                      <ToggleGroupItem value="wheat">
+                        Wheat
+                      </ToggleGroupItem>
+                    </ToggleGroup>
+                  );
                 case "weightInput":
                   return (
                     <div className="space-y-2">
@@ -205,7 +227,6 @@ export const DynamicField = ({
                         <ToggleGroupItem
                           key={option}
                           value={option.toLowerCase()}
-                          size="lg"
                         >
                           {option}
                         </ToggleGroupItem>
