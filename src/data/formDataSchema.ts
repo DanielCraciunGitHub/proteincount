@@ -21,7 +21,15 @@ export type FormDataItem = {
   placeholder?: string;
 };
 
-export const formDataSchema: FormDataItem[] = [
+export const mealsSectionSchema: FormDataItem[] = [
+  {
+    key: "meals",
+    type: "mealsInput",
+    label: "Meals",
+  },
+];
+
+export const personalInfoSchema: FormDataItem[] = [
   {
     key: "name",
     type: "text",
@@ -38,12 +46,9 @@ export const formDataSchema: FormDataItem[] = [
     label: "Gender",
     options: ["male", "female"],
   },
-  {
-    key: "activityLevel",
-    type: "toggle-group",
-    label: "Activity Level",
-    options: ["sedentary", "lightly active", "active", "very active"],
-  },
+];
+
+export const metricsSchema: FormDataItem[] = [
   {
     key: "height",
     type: "heightInput",
@@ -53,6 +58,12 @@ export const formDataSchema: FormDataItem[] = [
     key: "weight",
     type: "weightInput",
     label: "Weight",
+  },
+  {
+    key: "activityLevel",
+    type: "toggle-group",
+    label: "Activity Level",
+    options: ["sedentary", "lightly active", "active", "very active"],
   },
   {
     key: "dietType",
@@ -66,14 +77,10 @@ export const formDataSchema: FormDataItem[] = [
       "carnivore",
     ],
   },
-  {
-    key: "allergies",
-    type: "allergiesDropdown",
-    label: "Allergies",
-  },
-  {
-    key: "meals",
-    type: "mealsInput",
-    label: "Meals",
-  },
+];
+
+export const formDataSchema: FormDataItem[] = [
+  ...personalInfoSchema,
+  ...metricsSchema,
+  ...mealsSectionSchema,
 ];

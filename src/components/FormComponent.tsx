@@ -1,7 +1,11 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { formDataSchema } from "@/data/formDataSchema";
+import {
+  mealsSectionSchema,
+  metricsSchema,
+  personalInfoSchema,
+} from "@/data/formDataSchema";
 import { formMachine } from "@/data/formStateMachine";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMachine } from "@xstate/react";
@@ -57,21 +61,37 @@ export function FormComponent() {
       >
         <h1>Form</h1>
         <h2>{state.value}</h2>
-        {state.matches("personalInfo") &&
-          formDataSchema
-            .slice(0, -1)
-            .map((field, index) => (
-              <DynamicField
-                key={`${field.key}-${index}`}
-                fieldData={field}
-                form={form}
-              />
-            ))}
+        {state.matches("personal") &&
+          personalInfoSchema.map((field, index) => (
+            <DynamicField
+              key={`${field.key}-${index}`}
+              fieldData={field}
+              form={form}
+            />
+          ))}
+
+        {state.matches("metrics") &&
+          metricsSchema.map((field, index) => (
+            <DynamicField
+              key={`${field.key}-${index}`}
+              fieldData={field}
+              form={form}
+            />
+          ))}
+
+        {state.matches("meals") &&
+          mealsSectionSchema.map((field, index) => (
+            <DynamicField
+              key={`${field.key}-${index}`}
+              fieldData={field}
+              form={form}
+            />
+          ))}
         <div className="flex gap-2">
           <Button type="button" onClick={() => send({ type: "BACK" })}>
             Back
           </Button>
-          {state.matches("finalConfirmation") ? (
+          {state.matches("confirm") ? (
             <Button
               variant="destructive"
               type="submit"
