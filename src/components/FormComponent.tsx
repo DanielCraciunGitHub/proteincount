@@ -50,9 +50,6 @@ export function FormComponent() {
     router.push("/results");
   };
 
-  const formData = form.watch();
-  console.log(formData.weight, formData.height);
-
   return (
     <Form {...form}>
       <form
@@ -87,20 +84,29 @@ export function FormComponent() {
               form={form}
             />
           ))}
+
         <div className="flex gap-2">
-          <Button type="button" onClick={() => send({ type: "BACK" })}>
+          <Button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              send({ type: "BACK" });
+            }}
+          >
             Back
           </Button>
           {state.matches("confirm") ? (
-            <Button
-              variant="destructive"
-              type="submit"
-              onClick={form.handleSubmit(onSubmit)}
-            >
+            <Button variant="destructive" type="submit">
               Submit
             </Button>
           ) : (
-            <Button type="button" onClick={() => send({ type: "NEXT" })}>
+            <Button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                send({ type: "NEXT" });
+              }}
+            >
               Next
             </Button>
           )}
