@@ -14,30 +14,30 @@ export const formMachine = setup({
   },
 }).createMachine({
   context: {},
-  initial: "personal",
+  initial: "personal_questions",
 
   states: {
-    personal: {
+    personal_questions: {
       on: {
-        NEXT: "metrics",
+        NEXT: "your_metrics",
       },
     },
-    metrics: {
+    your_metrics: {
       on: {
-        NEXT: "meals",
-        BACK: "personal",
+        NEXT: "meal_questions",
+        BACK: "personal_questions",
       },
     },
-    meals: {
+    meal_questions: {
       on: {
         NEXT: "confirm",
-        BACK: "metrics",
+        BACK: "your_metrics",
       },
     },
     confirm: {
       on: {
         SUBMIT: "submit",
-        BACK: "meals",
+        BACK: "meal_questions",
       },
     },
     submit: { type: "final" },

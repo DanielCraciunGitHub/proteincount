@@ -196,6 +196,7 @@ export const DynamicField = ({
                     <ToggleGroup
                       type="single"
                       variant="outline"
+                      className="flex flex-wrap gap-2 justify-center"
                       value={formField.value as string}
                       onValueChange={formField.onChange}
                       defaultValue={formField.value as string}
