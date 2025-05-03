@@ -8,7 +8,7 @@ import {
 } from "@/types/validations/form";
 
 export type FormDataItem = {
-  key: keyof FormState;
+  key: keyof FormState | "divider";
   type:
     | "text"
     | "number"
@@ -32,7 +32,7 @@ export const mealsSectionSchema: FormDataItem[] = [
   {
     key: "meals",
     type: "mealsInput",
-    label: "Meals",
+    label: "",
   },
 ];
 
@@ -90,6 +90,16 @@ export const metricsSchema: FormDataItem[] = [
 
 export const formDataSchema: FormDataItem[] = [
   ...personalInfoSchema,
+  {
+    key: "divider",
+    type: "divider",
+    label: "",
+  },
   ...metricsSchema,
+  {
+    key: "divider",
+    type: "divider",
+    label: "",
+  },
   ...mealsSectionSchema,
 ];

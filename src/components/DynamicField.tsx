@@ -19,6 +19,8 @@ import {
   ToggleGroupItem,
 } from "@/components/ui/toggle-group";
 
+import { MealsInput } from "./MealsInput";
+
 export const DynamicField = ({
   fieldData,
   form,
@@ -29,7 +31,7 @@ export const DynamicField = ({
   return (
     <FormField
       control={form.control}
-      name={fieldData.key}
+      name={fieldData.key as keyof FormState}
       render={({ field: formField }) => (
         <FormItem>
           {fieldData.label && <FormLabel>{fieldData.label}</FormLabel>}
@@ -91,75 +93,99 @@ export const DynamicField = ({
                   );
                 case "heightInput":
                   const heightUnit = form.watch("height.unit");
-                  const heightFeet = form.watch("height.feet");
-                  const heightInches = form.watch("height.inches");
-                  const heightCm = form.watch("height.cm");
                   return (
                     <div className="space-y-2">
-                      <ToggleGroup
-                        type="single"
-                        variant="outline"
-                        value={heightUnit || "cm"}
-                        onValueChange={(value) => {
-                          if (value) {
-                            formField.onChange({
-                              ...((formField.value as any) || {}),
-                              unit: value,
-                            });
-                          }
-                        }}
-                      >
-                        {fieldData.options?.map((option: string) => (
-                          <ToggleGroupItem key={option} value={option}>
-                            {option}
-                          </ToggleGroupItem>
-                        ))}
-                      </ToggleGroup>
+                      <FormField
+                        control={form.control}
+                        name="height.unit"
+                        render={({ field }) => (
+                          <ToggleGroup
+                            type="single"
+                            variant="outline"
+                            value={field.value || "cm"}
+                            onValueChange={(value) => {
+                              if (value) {
+                                field.onChange(value);
+                              }
+                            }}
+                          >
+                            {fieldData.options?.map((option: string) => (
+                              <ToggleGroupItem key={option} value={option}>
+                                {option}
+                              </ToggleGroupItem>
+                            ))}
+                          </ToggleGroup>
+                        )}
+                      />
 
                       {heightUnit === "feet" ? (
                         <div className="flex items-center gap-2">
-                          <Input
-                            type="number"
-                            placeholder="Feet"
-                            value={
-                              heightFeet === undefined ? "" : heightFeet
-                            }
-                            onChange={(e) => {
-                              formField.onChange({
-                                ...((formField.value as any) || {}),
-                                feet: e.target.value,
-                              });
-                            }}
-                          />
-                          <Input
-                            type="number"
-                            placeholder="Inches"
-                            value={
-                              heightInches === undefined
-                                ? ""
-                                : heightInches
-                            }
-                            onChange={(e) => {
-                              formField.onChange({
-                                ...((formField.value as any) || {}),
-                                inches: e.target.value,
-                              });
-                            }}
-                          />
+                          <div className="w-full">
+                            <FormField
+                              control={form.control}
+                              name="height.feet"
+                              render={({ field }) => (
+                                <>
+                                  <Input
+                                    type="number"
+                                    placeholder="Feet"
+                                    value={
+                                      field.value === undefined
+                                        ? ""
+                                        : field.value
+                                    }
+                                    onChange={field.onChange}
+                                  />
+                                  <FormMessage />
+                                </>
+                              )}
+                            />
+                          </div>
+                          <div className="w-full">
+                            <FormField
+                              control={form.control}
+                              name="height.inches"
+                              render={({ field }) => (
+                                <>
+                                  <Input
+                                    type="number"
+                                    placeholder="Inches"
+                                    value={
+                                      field.value === undefined
+                                        ? ""
+                                        : field.value
+                                    }
+                                    onChange={field.onChange}
+                                  />
+                                  <FormMessage />
+                                </>
+                              )}
+                            />
+                          </div>
                         </div>
                       ) : (
                         <div className="flex items-center gap-2">
-                          <Input
-                            type="number"
-                            placeholder="Height"
-                            value={heightCm === undefined ? "" : heightCm}
-                            onChange={(e) => {
-                              formField.onChange({
-                                ...((formField.value as any) || {}),
-                                cm: e.target.value,
-                              });
-                            }}
-                          />
+                          <div className="w-full">
+                            <FormField
+                              control={form.control}
+                              name="height.cm"
+                              render={({ field }) => (
+                                <>
+                                  <Input
+                                    type="number"
+                                    placeholder="Height"
+                                    value={
+                                      field.value === undefined
+                                        ? ""
+                                        : field.value
+                                    }
+                                    onChange={field.onChange}
+                                  />
+                                  <FormMessage />
+                                </>
+                              )}
+                            />
+                          </div>
                         </div>
                       )}
                     </div>
@@ -182,59 +208,78 @@ export const DynamicField = ({
                   );
                 case "weightInput":
                   const weightUnit = form.watch("weight.unit");
-                  const weightKg = form.watch("weight.kg");
-                  const weightLbs = form.watch("weight.pounds");
                   return (
                     <div className="space-y-2">
-                      <ToggleGroup
-                        type="single"
-                        variant="outline"
-                        value={weightUnit || "kg"}
-                        onValueChange={(value) => {
-                          if (value) {
-                            formField.onChange({
-                              ...((formField.value as any) || {}),
-                              unit: value,
-                            });
-                          }
-                        }}
-                      >
-                        {fieldData.options?.map((option: string) => (
-                          <ToggleGroupItem key={option} value={option}>
-                            {option}
-                          </ToggleGroupItem>
-                        ))}
-                      </ToggleGroup>
+                      <FormField
+                        control={form.control}
+                        name="weight.unit"
+                        render={({ field }) => (
+                          <ToggleGroup
+                            type="single"
+                            variant="outline"
+                            value={field.value || "kg"}
+                            onValueChange={(value) => {
+                              if (value) {
+                                field.onChange(value);
+                              }
+                            }}
+                          >
+                            {fieldData.options?.map((option: string) => (
+                              <ToggleGroupItem key={option} value={option}>
+                                {option}
+                              </ToggleGroupItem>
+                            ))}
+                          </ToggleGroup>
+                        )}
+                      />
 
                       {weightUnit === "lbs" ? (
                         <div className="flex items-center gap-2">
-                          <Input
-                            type="number"
-                            placeholder="Pounds"
-                            value={
-                              weightLbs === undefined ? "" : weightLbs
-                            }
-                            onChange={(e) => {
-                              formField.onChange({
-                                ...((formField.value as any) || {}),
-                                pounds: e.target.value,
-                              });
-                            }}
-                          />
+                          <div className="w-full">
+                            <FormField
+                              control={form.control}
+                              name="weight.lbs"
+                              render={({ field }) => (
+                                <>
+                                  <Input
+                                    type="number"
+                                    placeholder="Pounds"
+                                    value={
+                                      field.value === undefined
+                                        ? ""
+                                        : field.value
+                                    }
+                                    onChange={field.onChange}
+                                  />
+                                  <FormMessage />
+                                </>
+                              )}
+                            />
+                          </div>
                         </div>
                       ) : (
                         <div className="flex items-center gap-2">
-                          <Input
-                            type="number"
-                            placeholder="Weight"
-                            value={weightKg === undefined ? "" : weightKg}
-                            onChange={(e) => {
-                              formField.onChange({
-                                ...((formField.value as any) || {}),
-                                kg: e.target.value,
-                              });
-                            }}
-                          />
+                          <div className="w-full">
+                            <FormField
+                              control={form.control}
+                              name="weight.kg"
+                              render={({ field }) => (
+                                <>
+                                  <Input
+                                    type="number"
+                                    placeholder="Weight"
+                                    value={
+                                      field.value === undefined
+                                        ? ""
+                                        : field.value
+                                    }
+                                    onChange={field.onChange}
+                                  />
+                                  <FormMessage />
+                                </>
+                              )}
+                            />
+                          </div>
                         </div>
                       )}
                     </div>
@@ -259,6 +304,8 @@ export const DynamicField = ({
                       ))}
                     </ToggleGroup>
                   );
+                case "mealsInput":
+                  return <MealsInput form={form} />;
                 default:
                   return null;
               }

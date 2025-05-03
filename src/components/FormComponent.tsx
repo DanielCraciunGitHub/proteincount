@@ -35,15 +35,18 @@ export function FormComponent() {
       height: {
         unit: "cm",
         cm: undefined,
-        feet: undefined,
-        inches: undefined,
       },
       weight: {
         unit: "kg",
         kg: undefined,
-        pounds: undefined,
       },
-      meals: [],
+      meals: [
+        {
+          mealOrSnack: "snack",
+          size: "medium",
+          description: "",
+        },
+      ],
     },
   });
 
