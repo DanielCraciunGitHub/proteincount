@@ -44,7 +44,11 @@ export const DynamicField = ({
                     <Input
                       placeholder={fieldData.placeholder}
                       {...formField}
-                      value={String(formField.value)}
+                      value={
+                        formField.value === undefined
+                          ? ""
+                          : String(formField.value)
+                      }
                     />
                   );
                 case "number":
@@ -53,7 +57,11 @@ export const DynamicField = ({
                       type="number"
                       placeholder={fieldData.placeholder}
                       {...formField}
-                      value={String(formField.value)}
+                      value={
+                        formField.value === undefined
+                          ? ""
+                          : String(formField.value)
+                      }
                     />
                   );
                 case "textarea":
@@ -62,46 +70,63 @@ export const DynamicField = ({
                       <Textarea
                         placeholder={fieldData.placeholder}
                         {...formField}
-                        value={String(formField.value)}
+                        value={
+                          formField.value === undefined
+                            ? ""
+                            : String(formField.value)
+                        }
                       />
                       <div className="flex justify-end text-xs text-muted-foreground">
                         <span>
-                          {String(formField.value).length}/120 characters
+                          {
+                            (formField.value === undefined
+                              ? ""
+                              : String(formField.value)
+                            ).length
+                          }
+                          /120 characters
                         </span>
                       </div>
                     </div>
                   );
                 case "heightInput":
+                  const heightUnit = form.watch("height.unit");
+                  const heightFeet = form.watch("height.feet");
+                  const heightInches = form.watch("height.inches");
+                  const heightCm = form.watch("height.cm");
                   return (
                     <div className="space-y-2">
                       <ToggleGroup
                         type="single"
                         variant="outline"
-                        value={(formField.value as any)?.unit || "metric"}
+                        value={heightUnit || "cm"}
                         onValueChange={(value) => {
-                          formField.onChange({
-                            ...(formField.value as any),
-                            unit: value,
-                          });
+                          if (value) {
+                            formField.onChange({
+                              ...((formField.value as any) || {}),
+                              unit: value,
+                            });
+                          }
                         }}
                       >
-                        <ToggleGroupItem value="cm" size="sm">
-                          cm
-                        </ToggleGroupItem>
-                        <ToggleGroupItem value="feet" size="sm">
-                          feet
-                        </ToggleGroupItem>
+                        {fieldData.options?.map((option: string) => (
+                          <ToggleGroupItem key={option} value={option}>
+                            {option}
+                          </ToggleGroupItem>
+                        ))}
                       </ToggleGroup>
 
-                      {(formField.value as any)?.unit === "feet" ? (
+                      {heightUnit === "feet" ? (
                         <div className="flex items-center gap-2">
                           <Input
                             type="number"
                             placeholder="Feet"
-                            value={(formField.value as any)?.feet || ""}
+                            value={
+                              heightFeet === undefined ? "" : heightFeet
+                            }
                             onChange={(e) => {
                               formField.onChange({
-                                ...(formField.value as any),
+                                ...((formField.value as any) || {}),
                                 feet: e.target.value,
                               });
                             }}
@@ -109,10 +134,14 @@ export const DynamicField = ({
                           <Input
                             type="number"
                             placeholder="Inches"
-                            value={(formField.value as any)?.inches || ""}
+                            value={
+                              heightInches === undefined
+                                ? ""
+                                : heightInches
+                            }
                             onChange={(e) => {
                               formField.onChange({
-                                ...(formField.value as any),
+                                ...((formField.value as any) || {}),
                                 inches: e.target.value,
                               });
                             }}
@@ -123,15 +152,14 @@ export const DynamicField = ({
                           <Input
                             type="number"
                             placeholder="Height"
-                            value={(formField.value as any)?.cm || ""}
+                            value={heightCm === undefined ? "" : heightCm}
                             onChange={(e) => {
                               formField.onChange({
-                                ...(formField.value as any),
+                                ...((formField.value as any) || {}),
                                 cm: e.target.value,
                               });
                             }}
                           />
-                          <span>cm</span>
                         </div>
                       )}
                     </div>
@@ -140,75 +168,73 @@ export const DynamicField = ({
                   return (
                     <ToggleGroup
                       type="multiple"
-                      value={formField.value as string[]}
+                      value={(formField.value as string[]) || []}
                       onValueChange={formField.onChange}
-                      defaultValue={formField.value as string[]}
+                      defaultValue={(formField.value as string[]) || []}
                       className="flex flex-wrap gap-2 justify-center"
                     >
-                      <ToggleGroupItem value="nuts">Nuts</ToggleGroupItem>
-                      <ToggleGroupItem value="gluten">
-                        Gluten
-                      </ToggleGroupItem>
-                      <ToggleGroupItem value="dairy">
-                        Dairy
-                      </ToggleGroupItem>
-                      <ToggleGroupItem value="soy">Soy</ToggleGroupItem>
-                      <ToggleGroupItem value="wheat">
-                        Wheat
-                      </ToggleGroupItem>
+                      {fieldData.options?.map((option: string) => (
+                        <ToggleGroupItem key={option} value={option}>
+                          {option}
+                        </ToggleGroupItem>
+                      ))}
                     </ToggleGroup>
                   );
                 case "weightInput":
+                  const weightUnit = form.watch("weight.unit");
+                  const weightKg = form.watch("weight.kg");
+                  const weightLbs = form.watch("weight.pounds");
                   return (
                     <div className="space-y-2">
                       <ToggleGroup
                         type="single"
                         variant="outline"
-                        value={(formField.value as any)?.unit || "metric"}
+                        value={weightUnit || "kg"}
                         onValueChange={(value) => {
-                          formField.onChange({
-                            ...(formField.value as any),
-                            unit: value,
-                          });
+                          if (value) {
+                            formField.onChange({
+                              ...((formField.value as any) || {}),
+                              unit: value,
+                            });
+                          }
                         }}
                       >
-                        <ToggleGroupItem value="kg" size="sm">
-                          kg
-                        </ToggleGroupItem>
-                        <ToggleGroupItem value="lbs" size="sm">
-                          lbs
-                        </ToggleGroupItem>
+                        {fieldData.options?.map((option: string) => (
+                          <ToggleGroupItem key={option} value={option}>
+                            {option}
+                          </ToggleGroupItem>
+                        ))}
                       </ToggleGroup>
 
-                      {(formField.value as any)?.unit === "lbs" ? (
+                      {weightUnit === "lbs" ? (
                         <div className="flex items-center gap-2">
                           <Input
                             type="number"
                             placeholder="Pounds"
-                            value={(formField.value as any)?.pounds || ""}
+                            value={
+                              weightLbs === undefined ? "" : weightLbs
+                            }
                             onChange={(e) => {
                               formField.onChange({
-                                ...(formField.value as any),
+                                ...((formField.value as any) || {}),
                                 pounds: e.target.value,
                               });
                             }}
                           />
-                          <span>lbs</span>
                         </div>
                       ) : (
                         <div className="flex items-center gap-2">
                           <Input
                             type="number"
                             placeholder="Weight"
-                            value={(formField.value as any)?.kg || ""}
+                            value={weightKg === undefined ? "" : weightKg}
                             onChange={(e) => {
                               formField.onChange({
-                                ...(formField.value as any),
+                                ...((formField.value as any) || {}),
                                 kg: e.target.value,
                               });
                             }}
                           />
-                          <span>kg</span>
                         </div>
                       )}
                     </div>
@@ -219,9 +245,9 @@ export const DynamicField = ({
                       type="single"
                       variant="outline"
                       className="flex flex-wrap gap-2 justify-center"
-                      value={formField.value as string}
+                      value={(formField.value as string) || ""}
                       onValueChange={formField.onChange}
-                      defaultValue={formField.value as string}
+                      defaultValue={(formField.value as string) || ""}
                     >
                       {fieldData.options?.map((option: string) => (
                         <ToggleGroupItem

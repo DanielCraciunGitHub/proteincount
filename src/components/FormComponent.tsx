@@ -27,21 +27,21 @@ export function FormComponent() {
     resolver: zodResolver(formStateSchema),
     defaultValues: {
       name: "",
-      age: 0,
+      age: undefined,
       allergies: [],
-      activityLevel: "sedentary",
-      dietType: "no diet",
-      gender: "male",
+      activityLevel: undefined,
+      dietType: undefined,
+      gender: undefined,
       height: {
         unit: "cm",
-        cm: 0,
-        feet: 0,
-        inches: 0,
+        cm: undefined,
+        feet: undefined,
+        inches: undefined,
       },
       weight: {
         unit: "kg",
-        kg: 0,
-        pounds: 0,
+        kg: undefined,
+        pounds: undefined,
       },
       meals: [],
     },
@@ -63,6 +63,13 @@ export function FormComponent() {
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
             {stateToFormTitle(state.value)}
           </h2>
+          <p className="text-sm text-muted-foreground mt-2">
+            {state.matches("personal_questions") &&
+              "Let's get to know you better."}
+            {state.matches("your_metrics") && "Let's see some numbers."}
+            {state.matches("meal_questions") &&
+              "The fun part. Describe your meals."}
+          </p>
         </div>
 
         {/* Content - Scrollable area */}

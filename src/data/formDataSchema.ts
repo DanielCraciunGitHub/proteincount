@@ -1,4 +1,11 @@
-import { FormState } from "@/types/validations/form";
+import {
+  activityLevels,
+  allergies,
+  dietTypes,
+  FormState,
+  heightUnits,
+  weightUnits,
+} from "@/types/validations/form";
 
 export type FormDataItem = {
   key: keyof FormState;
@@ -53,34 +60,31 @@ export const metricsSchema: FormDataItem[] = [
     key: "height",
     type: "heightInput",
     label: "Height",
+    options: [...heightUnits],
   },
   {
     key: "weight",
     type: "weightInput",
     label: "Weight",
+    options: [...weightUnits],
   },
   {
     key: "activityLevel",
     type: "toggle-group",
     label: "Activity Level",
-    options: ["sedentary", "lightly active", "active", "very active"],
+    options: [...activityLevels],
   },
   {
     key: "dietType",
     type: "toggle-group",
     label: "Diet Type",
-    options: [
-      "vegetarian",
-      "vegan",
-      "pescitarian",
-      "no diet",
-      "carnivore",
-    ],
+    options: [...dietTypes],
   },
   {
     key: "allergies",
     type: "allergiesToggle",
     label: "Allergies",
+    options: [...allergies],
   },
 ];
 
