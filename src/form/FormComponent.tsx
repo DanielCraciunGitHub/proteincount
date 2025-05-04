@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   formDataSchema,
@@ -14,10 +15,13 @@ import { useMachine } from "@xstate/react";
 import { DeepPartial, useForm } from "react-hook-form";
 
 import { stateToFormTitle } from "@/lib/utils";
+import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 
 import { Button } from "../components/ui/button";
 import { Form } from "../components/ui/form";
 import { DynamicField } from "./DynamicField";
+import { FormLocalStorage } from "./logic/formLocalStorage";
+import { submitForm } from "./logic/submit";
 
 const defaultFormData: DeepPartial<FormState> = {
   name: "",
@@ -46,16 +50,39 @@ const defaultFormData: DeepPartial<FormState> = {
 export function FormComponent() {
   const [state, send] = useMachine(formMachine);
   const router = useRouter();
+  const [artificialLoading, setArtificialLoading] = useState(true);
 
   const form = useForm<FormState>({
     resolver: zodResolver(formStateSchema),
     defaultValues: defaultFormData,
   });
 
-  const onSubmit = (data: FormState) => {
-    console.log(data);
+  useEffect(() => {
+    const localFormData = FormLocalStorage.getFormData();
+    if (localFormData) {
+      form.reset(localFormData);
+    }
+  }, []);
+
+  useEffect(() => {
+    FormLocalStorage.debouncedSaveFormData(form.watch());
+  }, [form.watch()]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setArtificialLoading(false);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const onSubmit = async (data: FormState) => {
+    await submitForm(data);
     router.push("/results");
   };
+
+  if (artificialLoading) {
+    return <LoadingSpinner size="xl" />;
+  }
 
   return (
     <Form {...form}>
