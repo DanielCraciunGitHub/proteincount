@@ -190,7 +190,7 @@ export const DynamicField = ({
                       )}
                     </div>
                   );
-                case "allergiesToggle":
+                case "multi-toggle-group":
                   return (
                     <ToggleGroup
                       type="multiple"

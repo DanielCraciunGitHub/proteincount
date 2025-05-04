@@ -1,40 +1,12 @@
+import {
+  activityLevels,
+  allergies,
+  dietTypes,
+  gender,
+  mealSizes,
+  mealTypes,
+} from "@/data/formDataSchema";
 import { z } from "zod";
-
-export const activityLevels = [
-  "sedentary",
-  "lightly-active",
-  "active",
-  "very-active",
-] as const;
-
-export const heightUnits = ["cm", "feet"] as const;
-
-export const weightUnits = ["kg", "lbs"] as const;
-
-export const dietTypes = [
-  "vegetarian",
-  "vegan",
-  "pescitarian",
-  "no diet",
-  "carnivore",
-] as const;
-
-export const gender = ["male", "female"] as const;
-
-export const mealSizes = ["small", "medium", "large"] as const;
-
-export const mealTypes = ["meal", "snack"] as const;
-
-export const allergies = [
-  "gluten",
-  "dairy",
-  "eggs",
-  "peanuts",
-  "soy",
-  "tree-nuts",
-  "fish",
-  "shellfish",
-] as const;
 
 export const formStateSchema = z.object({
   name: z.string().min(1, {
