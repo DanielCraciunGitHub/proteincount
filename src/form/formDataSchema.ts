@@ -60,6 +60,7 @@ export type FormDataItem = {
   label: string;
   options?: string[];
   placeholder?: string;
+  required?: boolean;
 };
 
 export const mealsSectionSchema: FormDataItem[] = [
@@ -67,6 +68,7 @@ export const mealsSectionSchema: FormDataItem[] = [
     key: "meals",
     type: "mealsInput",
     label: "",
+    required: true,
   },
 ];
 
@@ -80,12 +82,14 @@ export const personalInfoSchema: FormDataItem[] = [
     key: "age",
     type: "number",
     label: "Age",
+    required: true,
   },
   {
     key: "gender",
     type: "toggle-group",
     label: "Gender",
     options: [...gender],
+    required: true,
   },
 ];
 
@@ -95,24 +99,28 @@ export const metricsSchema: FormDataItem[] = [
     type: "heightInput",
     label: "Height",
     options: [...heightUnits],
+    required: true,
   },
   {
     key: "weight",
     type: "weightInput",
     label: "Weight",
     options: [...weightUnits],
+    required: true,
   },
   {
     key: "activityLevel",
     type: "toggle-group",
     label: "Activity Level",
     options: [...activityLevels],
+    required: true,
   },
   {
     key: "dietType",
     type: "toggle-group",
     label: "Diet Type",
     options: [...dietTypes],
+    required: true,
   },
   {
     key: "allergies",

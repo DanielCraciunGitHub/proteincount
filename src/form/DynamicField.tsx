@@ -34,7 +34,14 @@ export const DynamicField = ({
       name={fieldData.key as keyof FormState}
       render={({ field: formField }) => (
         <FormItem>
-          {fieldData.label && <FormLabel>{fieldData.label}</FormLabel>}
+          {fieldData.label && (
+            <FormLabel>
+              {fieldData.label}
+              {fieldData.required && (
+                <span className="text-red-500">*</span>
+              )}
+            </FormLabel>
+          )}
           <FormMessage />
           <FormControl>
             {(() => {

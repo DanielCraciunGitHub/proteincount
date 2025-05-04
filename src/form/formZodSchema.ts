@@ -9,9 +9,7 @@ import {
 import { z } from "zod";
 
 export const formStateSchema = z.object({
-  name: z.string().min(1, {
-    message: "Please enter your name",
-  }),
+  name: z.string().optional(),
   age: z.coerce.number({
     required_error: "Please enter your age",
     invalid_type_error: "Please enter a valid age",
