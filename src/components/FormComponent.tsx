@@ -10,7 +10,7 @@ import {
 import { formMachine } from "@/data/formStateMachine";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMachine } from "@xstate/react";
-import { useForm } from "react-hook-form";
+import { DeepPartial, useForm } from "react-hook-form";
 
 import { FormState, formStateSchema } from "@/types/validations/form";
 import { stateToFormTitle } from "@/lib/utils";
@@ -19,35 +19,37 @@ import { DynamicField } from "./DynamicField";
 import { Button } from "./ui/button";
 import { Form } from "./ui/form";
 
+const defaultFormData: DeepPartial<FormState> = {
+  name: "",
+  age: 0,
+  allergies: [],
+  activityLevel: "sedentary",
+  dietType: "no diet",
+  gender: "male",
+  height: {
+    unit: "cm",
+    cm: undefined,
+  },
+  weight: {
+    unit: "kg",
+    kg: undefined,
+  },
+  meals: [
+    {
+      mealOrSnack: "snack",
+      size: "medium",
+      description: "",
+    },
+  ],
+};
+
 export function FormComponent() {
   const [state, send] = useMachine(formMachine);
   const router = useRouter();
 
   const form = useForm<FormState>({
     resolver: zodResolver(formStateSchema),
-    defaultValues: {
-      name: "",
-      age: undefined,
-      allergies: [],
-      activityLevel: undefined,
-      dietType: undefined,
-      gender: undefined,
-      height: {
-        unit: "cm",
-        cm: undefined,
-      },
-      weight: {
-        unit: "kg",
-        kg: undefined,
-      },
-      meals: [
-        {
-          mealOrSnack: "snack",
-          size: "medium",
-          description: "",
-        },
-      ],
-    },
+    defaultValues: defaultFormData,
   });
 
   const onSubmit = (data: FormState) => {
