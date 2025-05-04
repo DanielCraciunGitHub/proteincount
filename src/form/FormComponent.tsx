@@ -24,7 +24,7 @@ const defaultFormData: DeepPartial<FormState> = {
   age: undefined,
   allergies: [],
   activityLevel: undefined,
-  dietType: undefined,
+  dietType: "balanced",
   gender: undefined,
   height: {
     unit: "cm",

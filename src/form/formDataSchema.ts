@@ -12,11 +12,14 @@ export const heightUnits = ["cm", "feet"] as const;
 export const weightUnits = ["kg", "lbs"] as const;
 
 export const dietTypes = [
+  "balanced",
   "vegetarian",
-  "vegan",
   "pescitarian",
-  "no diet",
+  "vegan",
   "carnivore",
+  "keto",
+  "low-carb",
+  "low-fat",
 ] as const;
 
 export const gender = ["male", "female"] as const;
