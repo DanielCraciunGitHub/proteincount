@@ -5,7 +5,7 @@ import {
   gender,
   mealSizes,
   mealTypes,
-} from "@/data/formDataSchema";
+} from "@/form/formDataSchema";
 import { z } from "zod";
 
 export const formStateSchema = z.object({

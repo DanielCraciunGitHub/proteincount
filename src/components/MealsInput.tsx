@@ -1,4 +1,4 @@
-import { mealSizes, mealTypes } from "@/data/formDataSchema";
+import { mealSizes, mealTypes } from "@/form/formDataSchema";
 import { PlusCircle, Trash2 } from "lucide-react";
 import { useFieldArray, UseFormReturn } from "react-hook-form";
 

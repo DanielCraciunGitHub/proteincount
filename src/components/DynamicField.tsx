@@ -1,6 +1,6 @@
 "use client";
 
-import { FormDataItem } from "@/data/formDataSchema";
+import { FormDataItem } from "@/form/formDataSchema";
 import type { UseFormReturn } from "react-hook-form";
 
 import { FormState } from "@/types/validations/form";

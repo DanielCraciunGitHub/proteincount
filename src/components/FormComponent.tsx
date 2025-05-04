@@ -6,8 +6,8 @@ import {
   mealsSectionSchema,
   metricsSchema,
   personalInfoSchema,
-} from "@/data/formDataSchema";
-import { formMachine } from "@/data/formStateMachine";
+} from "@/form/formDataSchema";
+import { formMachine } from "@/form/formStateMachine";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMachine } from "@xstate/react";
 import { DeepPartial, useForm } from "react-hook-form";
