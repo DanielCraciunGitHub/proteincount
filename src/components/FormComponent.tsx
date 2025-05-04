@@ -21,11 +21,11 @@ import { Form } from "./ui/form";
 
 const defaultFormData: DeepPartial<FormState> = {
   name: "",
-  age: 0,
+  age: undefined,
   allergies: [],
-  activityLevel: "sedentary",
-  dietType: "no diet",
-  gender: "male",
+  activityLevel: undefined,
+  dietType: undefined,
+  gender: undefined,
   height: {
     unit: "cm",
     cm: undefined,
@@ -36,7 +36,7 @@ const defaultFormData: DeepPartial<FormState> = {
   },
   meals: [
     {
-      mealOrSnack: "snack",
+      mealOrSnack: "meal",
       size: "medium",
       description: "",
     },

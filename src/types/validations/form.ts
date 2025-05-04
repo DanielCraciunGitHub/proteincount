@@ -25,36 +25,58 @@ export const formStateSchema = z.object({
   height: z.discriminatedUnion("unit", [
     z.object({
       unit: z.literal("cm"),
-      cm: z.coerce.number().min(1, {
-        message: "Please enter a valid height",
-      }),
+      cm: z.coerce
+        .number({
+          invalid_type_error: "Please enter a valid height",
+        })
+        .min(1, {
+          message: "Please enter a valid height",
+        }),
     }),
     z.object({
       unit: z.literal("feet"),
-      feet: z.coerce.number().min(1, {
-        message: "Please enter a valid feet value",
-      }),
-      inches: z.coerce.number().min(1, {
-        message: "Please enter a valid inches value",
-      }),
+      feet: z.coerce
+        .number({
+          invalid_type_error: "Please enter a valid feet value",
+        })
+        .min(1, {
+          message: "Please enter a valid feet value",
+        }),
+      inches: z.coerce
+        .number({
+          invalid_type_error: "Please enter a valid inches value",
+        })
+        .min(1, {
+          message: "Please enter a valid inches value",
+        }),
     }),
   ]),
   weight: z.discriminatedUnion("unit", [
     z.object({
       unit: z.literal("kg"),
-      kg: z.coerce.number().min(1, {
-        message: "Please enter a valid weight",
-      }),
+      kg: z.coerce
+        .number({
+          invalid_type_error: "Please enter a valid weight",
+        })
+        .min(1, {
+          message: "Please enter a valid weight",
+        }),
     }),
     z.object({
       unit: z.literal("lbs"),
-      lbs: z.coerce.number().min(1, {
-        message: "Please enter a valid weight",
-      }),
+      lbs: z.coerce
+        .number({
+          invalid_type_error: "Please enter a valid weight",
+        })
+        .min(1, {
+          message: "Please enter a valid weight",
+        }),
     }),
   ]),
   dietType: z.enum(dietTypes, {
     required_error: "Please select a diet type",
+    invalid_type_error: "Please select a diet type",
+    message: "Please select a diet type",
   }),
   allergies: z.array(
     z.enum(allergies, {
