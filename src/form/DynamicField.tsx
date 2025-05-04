@@ -1,9 +1,9 @@
 "use client";
 
 import { FormDataItem } from "@/form/formDataSchema";
+import { FormState } from "@/form/formZodSchema";
 import type { UseFormReturn } from "react-hook-form";
 
-import { FormState } from "@/types/validations/form";
 import {
   FormControl,
   FormField,
@@ -19,7 +19,7 @@ import {
   ToggleGroupItem,
 } from "@/components/ui/toggle-group";
 
-import { MealsInput } from "./MealsInput";
+import { MealsInput } from "../components/MealsInput";
 
 export const DynamicField = ({
   fieldData,

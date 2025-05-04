@@ -1,8 +1,7 @@
 import { mealSizes, mealTypes } from "@/form/formDataSchema";
+import { FormState } from "@/form/formZodSchema";
 import { PlusCircle, Trash2 } from "lucide-react";
 import { useFieldArray, UseFormReturn } from "react-hook-form";
-
-import { FormState } from "@/types/validations/form";
 
 import { Button } from "./ui/button";
 import {

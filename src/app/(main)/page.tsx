@@ -1,4 +1,4 @@
-import { FormComponent } from "@/components/FormComponent";
+import { FormComponent } from "@/form/FormComponent";
 
 // TODO redirect to /questions/personal if the user is not logged in
 export default function ProfilePage() {

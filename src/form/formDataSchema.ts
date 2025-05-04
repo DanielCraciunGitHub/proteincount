@@ -1,4 +1,4 @@
-import { FormState } from "@/types/validations/form";
+import { FormState } from "@/form/formZodSchema";
 
 export const activityLevels = [
   "sedentary",

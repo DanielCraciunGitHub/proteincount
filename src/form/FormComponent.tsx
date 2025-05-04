@@ -8,16 +8,16 @@ import {
   personalInfoSchema,
 } from "@/form/formDataSchema";
 import { formMachine } from "@/form/formStateMachine";
+import { FormState, formStateSchema } from "@/form/formZodSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMachine } from "@xstate/react";
 import { DeepPartial, useForm } from "react-hook-form";
 
-import { FormState, formStateSchema } from "@/types/validations/form";
 import { stateToFormTitle } from "@/lib/utils";
 
+import { Button } from "../components/ui/button";
+import { Form } from "../components/ui/form";
 import { DynamicField } from "./DynamicField";
-import { Button } from "./ui/button";
-import { Form } from "./ui/form";
 
 const defaultFormData: DeepPartial<FormState> = {
   name: "",
