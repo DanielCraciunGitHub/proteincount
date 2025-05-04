@@ -3,22 +3,22 @@ import { FormState } from "@/form/formZodSchema";
 import { PlusCircle, Trash2 } from "lucide-react";
 import { useFieldArray, UseFormReturn } from "react-hook-form";
 
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form";
+} from "@/components/ui/form";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./ui/select";
-import { Textarea } from "./ui/textarea";
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 
 export const MealsInput = ({
   form,
@@ -105,7 +105,11 @@ export const MealsInput = ({
                 variant="ghost"
                 size="icon"
                 className="text-destructive hover:text-destructive/90 self-center"
-                onClick={() => remove(index)}
+                onClick={() => {
+                  if (fields.length > 1) {
+                    remove(index);
+                  }
+                }}
                 type="button"
               >
                 <Trash2 className="h-5 w-5" />

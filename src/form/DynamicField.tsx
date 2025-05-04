@@ -19,7 +19,7 @@ import {
   ToggleGroupItem,
 } from "@/components/ui/toggle-group";
 
-import { MealsInput } from "../components/MealsInput";
+import { MealsInput } from "./fields/MealsInput";
 
 export const DynamicField = ({
   fieldData,
