@@ -30,9 +30,14 @@ export class FormLocalStorage {
     if (typeof window === "undefined" || !localStorage.getItem(this.KEY)) {
       return null;
     }
-    return formStateSchema.parse(
-      JSON.parse(localStorage.getItem(this.KEY) as string)
-    );
+    try {
+      return formStateSchema.parse(
+        JSON.parse(localStorage.getItem(this.KEY) as string)
+      );
+    } catch (error) {
+      console.error("Error parsing form data", error);
+      return null;
+    }
   }
 
   public static clearFormData() {
