@@ -6,6 +6,7 @@ import {
   mealSizes,
   mealTypes,
 } from "@/form/formDataSchema";
+import { sql } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const user = sqliteTable("user", {
@@ -63,7 +64,7 @@ export const verification = sqliteTable("verification", {
 });
 
 export const profileData = sqliteTable("profile_data", {
-  id: text("id").primaryKey(),
+  id: integer("id").primaryKey({ autoIncrement: true }),
   userId: text("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
@@ -90,6 +91,10 @@ export const profileData = sqliteTable("profile_data", {
       }[]
     >()
     .default([]),
-  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
-  updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
+  createdAt: integer("created_at", { mode: "timestamp" }).default(
+    sql`CURRENT_TIMESTAMP`
+  ),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).default(
+    sql`CURRENT_TIMESTAMP`
+  ),
 });
