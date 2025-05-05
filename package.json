@@ -9,6 +9,7 @@
     "lint": "next lint",
     "format": "prettier --write .",
     "prepare": "husky",
+    "cicd": "./scripts/cicd.sh",
     "dbgen:prod": "drizzle-kit generate --config=drizzle-prod.config.ts",
     "dbgen:dev": "drizzle-kit generate --config=drizzle-dev.config.ts",
     "dbpush:prod": "drizzle-kit push --config=drizzle-prod.config.ts",
