@@ -47,3 +47,5 @@ CREATE TABLE `verification` (
 	`created_at` integer,
 	`updated_at` integer
 );
+--> statement-breakpoint
+DROP TABLE `users`;

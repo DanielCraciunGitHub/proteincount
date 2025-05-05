@@ -1,3 +1,11 @@
+import {
+  activityLevels,
+  allergies,
+  dietTypes,
+  gender,
+  mealSizes,
+  mealTypes,
+} from "@/form/formDataSchema";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const user = sqliteTable("user", {
@@ -52,4 +60,36 @@ export const verification = sqliteTable("verification", {
   expiresAt: integer("expires_at", { mode: "timestamp" }).notNull(),
   createdAt: integer("created_at", { mode: "timestamp" }),
   updatedAt: integer("updated_at", { mode: "timestamp" }),
+});
+
+export const profileData = sqliteTable("profile_data", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  name: text("name"),
+  age: integer("age").notNull(),
+  gender: text("gender", { enum: gender }).notNull(),
+  activityLevel: text("activity_level", {
+    enum: activityLevels,
+  }).notNull(),
+  height: integer("height").notNull(),
+  weight: integer("weight").notNull(),
+  dietType: text("dietType", { enum: dietTypes }).notNull(),
+  allergies: text("allergies", { mode: "json" })
+    .notNull()
+    .$type<(typeof allergies)[number][]>()
+    .default([]),
+  mealsData: text("meals_data", { mode: "json" })
+    .notNull()
+    .$type<
+      {
+        mealOrSnack: (typeof mealTypes)[number];
+        size: (typeof mealSizes)[number];
+        description: string;
+      }[]
+    >()
+    .default([]),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
 });

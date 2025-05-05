@@ -1,3 +1,4 @@
+import { profileData } from "@/db/schema";
 import {
   activityLevels,
   allergies,
@@ -6,6 +7,7 @@ import {
   mealSizes,
   mealTypes,
 } from "@/form/formDataSchema";
+import { createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
 
 export const formStateSchema = z.object({
@@ -91,5 +93,7 @@ export const formStateSchema = z.object({
     })
   ),
 });
+
+export const profileDataSelectSchema = createSelectSchema(profileData);
 
 export type FormState = z.infer<typeof formStateSchema>;
