@@ -1,6 +1,6 @@
 "use client";
 
-import { FormState, formStateSchema } from "@/form/formZodSchema";
+import { FormState } from "@/form/formZodSchema";
 import { debounce } from "lodash";
 
 export class FormLocalStorage {
@@ -31,9 +31,7 @@ export class FormLocalStorage {
       return null;
     }
     try {
-      return formStateSchema.parse(
-        JSON.parse(localStorage.getItem(this.KEY) as string)
-      );
+      return JSON.parse(localStorage.getItem(this.KEY) as string);
     } catch (error) {
       console.error("Error parsing form data", error);
       return null;
