@@ -35,15 +35,15 @@ export const MealsInput = ({
       {fields.map((field, index) => (
         <div
           key={field.id}
-          className="flex items-center gap-3 bg-muted/20 p-3 rounded-md"
+          className="flex flex-col bg-muted/20 p-3 rounded-md"
         >
-          <div className="flex-1 space-y-4">
-            <div className="flex gap-24">
+          <div className="flex-1 space-y-4 w-full">
+            <div className="flex flex-row gap-4 sm:gap-6">
               <FormField
                 control={form.control}
                 name={`meals.${index}.mealOrSnack`}
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="flex-1">
                     <FormLabel>Type</FormLabel>
                     <Select
                       onValueChange={field.onChange}
@@ -74,7 +74,7 @@ export const MealsInput = ({
                 control={form.control}
                 name={`meals.${index}.size`}
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="flex-1">
                     <FormLabel>Size</FormLabel>
                     <Select
                       onValueChange={field.onChange}
@@ -104,7 +104,7 @@ export const MealsInput = ({
               <Button
                 variant="ghost"
                 size="icon"
-                className="text-destructive hover:text-destructive/90 self-center"
+                className="text-destructive hover:text-destructive/90 self-start sm:self-center mt-6 sm:mt-0"
                 onClick={() => {
                   if (fields.length > 1) {
                     remove(index);
@@ -120,13 +120,14 @@ export const MealsInput = ({
               control={form.control}
               name={`meals.${index}.description`}
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-full">
                   <FormLabel>Description</FormLabel>
                   <FormControl>
                     <Textarea
                       {...field}
                       placeholder="Describe your meal using at least 20 characters"
                       rows={3}
+                      className="w-full"
                     />
                   </FormControl>
                   <FormMessage />
