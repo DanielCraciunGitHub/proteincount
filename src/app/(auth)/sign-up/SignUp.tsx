@@ -2,6 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { formStateSchema } from "@/form/formZodSchema";
+import { FormLocalStorage } from "@/form/logic/formLocalStorage";
+import { submitForm } from "@/form/logic/submit";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -39,6 +43,7 @@ type SignUpFormValues = z.infer<typeof signUpSchema>;
 export function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   const form = useForm<SignUpFormValues>({
     resolver: zodResolver(signUpSchema),
@@ -54,7 +59,23 @@ export function SignUp() {
     setError(null);
 
     try {
-      await emailPasswordAuth(data.email, data.password, "sign-up");
+      const { data: proteinFormData, success } = formStateSchema.safeParse(
+        FormLocalStorage.getFormData()
+      );
+      const name = proteinFormData?.name;
+
+      const { user } = await emailPasswordAuth(
+        data.email,
+        data.password,
+        "sign-up",
+        name
+      );
+
+      if (success) {
+        await submitForm(proteinFormData, user.id);
+      }
+
+      router.push("/profile");
     } catch (err) {
       setError("Something went wrong. Please try again.");
       console.error(err);
@@ -85,7 +106,9 @@ export function SignUp() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>
+                  Email <span className="text-red-500">*</span>
+                </FormLabel>
                 <FormControl>
                   <Input placeholder="name@example.com" {...field} />
                 </FormControl>
@@ -99,7 +122,9 @@ export function SignUp() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>
+                  Password <span className="text-red-500">*</span>
+                </FormLabel>
                 <FormControl>
                   <Input
                     type="password"
@@ -117,7 +142,9 @@ export function SignUp() {
             name="confirmPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Confirm Password</FormLabel>
+                <FormLabel>
+                  Confirm Password <span className="text-red-500">*</span>
+                </FormLabel>
                 <FormControl>
                   <Input
                     type="password"

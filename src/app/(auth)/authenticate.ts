@@ -1,30 +1,27 @@
 "use server";
 
-import { redirect } from "next/navigation";
-
 import { auth } from "@/lib/auth";
 
 export async function emailPasswordAuth(
   email: string,
   password: string,
-  type: "sign-in" | "sign-up"
+  type: "sign-in" | "sign-up",
+  name?: string | null
 ) {
   if (type === "sign-in") {
-    await auth.api.signInEmail({
+    return await auth.api.signInEmail({
       body: {
         email,
         password,
       },
     });
   } else {
-    await auth.api.signUpEmail({
+    return await auth.api.signUpEmail({
       body: {
-        name: "John Doe",
+        name: name ?? "John Doe",
         email,
         password,
       },
     });
   }
-
-  redirect("/profile");
 }

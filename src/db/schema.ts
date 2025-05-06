@@ -1,3 +1,4 @@
+import { randomUUID } from "crypto";
 import {
   activityLevels,
   allergies,
@@ -64,10 +65,12 @@ export const verification = sqliteTable("verification", {
 });
 
 export const profileData = sqliteTable("profile_data", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
-  userId: text("user_id")
-    .notNull()
-    .references(() => user.id, { onDelete: "cascade" }),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => randomUUID()),
+  userId: text("user_id").references(() => user.id, {
+    onDelete: "cascade",
+  }),
   name: text("name"),
   age: integer("age").notNull(),
   gender: text("gender", { enum: gender }).notNull(),
@@ -91,12 +94,12 @@ export const profileData = sqliteTable("profile_data", {
       }[]
     >()
     .default([]),
-  createdAt: integer("created_at", { mode: "timestamp" }).default(
-    sql`CURRENT_TIMESTAMP`
-  ),
-  updatedAt: integer("updated_at", { mode: "timestamp" }).default(
-    sql`CURRENT_TIMESTAMP`
-  ),
+  createdAt: text("created_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: text("updated_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
 });
 
 export const userRelations = relations(user, ({ one }) => ({

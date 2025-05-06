@@ -6,8 +6,18 @@ import { debounce } from "lodash";
 export class FormLocalStorage {
   private static readonly KEY = "formData";
   private static readonly STATE_KEY = "formState";
+  private static readonly ID_KEY = "formId";
+
   public static saveFormData(formData: FormState) {
     localStorage.setItem(this.KEY, JSON.stringify(formData));
+  }
+
+  public static saveFormId(id: string) {
+    localStorage.setItem(this.ID_KEY, id);
+  }
+
+  public static getFormId() {
+    return localStorage.getItem(this.ID_KEY);
   }
 
   public static saveState(state: string) {

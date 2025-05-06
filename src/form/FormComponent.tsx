@@ -21,7 +21,6 @@ import { Button } from "../components/ui/button";
 import { Form } from "../components/ui/form";
 import { DynamicField } from "./DynamicField";
 import { FormLocalStorage } from "./logic/formLocalStorage";
-import { submitForm } from "./logic/submit";
 
 const defaultFormData: DeepPartial<FormState> = {
   name: "",
@@ -76,7 +75,7 @@ export function FormComponent() {
   }, []);
 
   const onSubmit = async (data: FormState) => {
-    await submitForm(data);
+    FormLocalStorage.saveFormData(data);
     router.push("/results");
   };
 

@@ -1,22 +1,12 @@
 "use server";
 
-import { headers } from "next/headers";
 import { db } from "@/db";
 import { profileData } from "@/db/schema";
 import { FormState } from "@/form/formZodSchema";
+import { sql } from "drizzle-orm";
 
-import { auth } from "@/lib/auth";
-
-export async function submitForm(formData: FormState) {
+export async function submitForm(formData: FormState, userId: string) {
   const { height, weight, ...rest } = formData;
-
-  const sessionInstance = await auth.api.getSession({
-    headers: await headers(),
-  });
-
-  if (!sessionInstance) {
-    throw new Error("Unauthorized");
-  }
 
   const heightValueInCm =
     height.unit === "cm" ? height.cm : height.feet * 12 + height.inches;
@@ -24,11 +14,24 @@ export async function submitForm(formData: FormState) {
   const weightValueInKg =
     weight.unit === "kg" ? weight.kg : weight.lbs * 2.20462;
 
-  await db.insert(profileData).values({
-    height: heightValueInCm,
-    weight: weightValueInKg,
-    userId: sessionInstance.user.id,
-    ...rest,
-  });
-  console.log(formData);
+  const [data] = await db
+    .insert(profileData)
+    .values({
+      height: heightValueInCm,
+      weight: weightValueInKg,
+      ...rest,
+      userId,
+    })
+    .onConflictDoUpdate({
+      target: [profileData.userId],
+      set: {
+        height: heightValueInCm,
+        weight: weightValueInKg,
+        ...rest,
+        updatedAt: sql`CURRENT_TIMESTAMP`,
+      },
+    })
+    .returning();
+
+  return data.id;
 }

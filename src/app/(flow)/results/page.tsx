@@ -1,3 +1,5 @@
+import { ResultsSave } from "./ResultsSave";
+
 export default function ResultsPage() {
-  return <div>Results</div>;
+  return <ResultsSave />;
 }
