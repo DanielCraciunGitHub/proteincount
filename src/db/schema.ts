@@ -6,7 +6,7 @@ import {
   mealSizes,
   mealTypes,
 } from "@/form/formDataSchema";
-import { sql } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const user = sqliteTable("user", {
@@ -98,3 +98,10 @@ export const profileData = sqliteTable("profile_data", {
     sql`CURRENT_TIMESTAMP`
   ),
 });
+
+export const userRelations = relations(user, ({ one }) => ({
+  profileData: one(profileData, {
+    fields: [user.id],
+    references: [profileData.userId],
+  }),
+}));
