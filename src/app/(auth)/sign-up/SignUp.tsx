@@ -86,11 +86,11 @@ export function SignUp() {
   }
 
   return (
-    <div className="w-full max-w-md space-y-8">
+    <div className="mx-2 w-full max-w-md space-y-8">
       <div className="text-center">
         <h1 className="text-4xl font-bold">Sign Up</h1>
         <p className="mt-2 text-sm text-gray-600">
-          Create an account to get started
+          Accurate protein tracking doesn&apos;t have to be a chore.
         </p>
       </div>
 
