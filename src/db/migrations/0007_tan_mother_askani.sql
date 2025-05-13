@@ -1,0 +1,1 @@
+ALTER TABLE `profile_data` RENAME COLUMN "meals_data" TO "meals";

@@ -84,7 +84,7 @@ export const profileData = sqliteTable("profile_data", {
     .notNull()
     .$type<(typeof allergies)[number][]>()
     .default([]),
-  mealsData: text("meals_data", { mode: "json" })
+  meals: text("meals", { mode: "json" })
     .notNull()
     .$type<
       {
