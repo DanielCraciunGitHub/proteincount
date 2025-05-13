@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { formStateSchema } from "@/form/formZodSchema";
 import { FormLocalStorage } from "@/form/logic/formLocalStorage";
-import { submitForm } from "@/form/logic/submit";
+import { initializeProfileData } from "@/form/logic/submit";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -72,7 +72,7 @@ export function SignUp() {
       );
 
       if (success) {
-        await submitForm(proteinFormData, user.id);
+        await initializeProfileData(proteinFormData, user.id);
       }
 
       router.push("/profile");

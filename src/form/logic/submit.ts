@@ -3,9 +3,11 @@
 import { db } from "@/db";
 import { profileData } from "@/db/schema";
 import { FormState } from "@/form/formZodSchema";
-import { sql } from "drizzle-orm";
 
-export async function submitForm(formData: FormState, userId: string) {
+export async function initializeProfileData(
+  formData: FormState,
+  userId: string
+) {
   const { height, weight, ...rest } = formData;
 
   const heightValueInCm =
@@ -22,15 +24,7 @@ export async function submitForm(formData: FormState, userId: string) {
       ...rest,
       userId,
     })
-    .onConflictDoUpdate({
-      target: [profileData.userId],
-      set: {
-        height: heightValueInCm,
-        weight: weightValueInKg,
-        ...rest,
-        updatedAt: sql`CURRENT_TIMESTAMP`,
-      },
-    })
+    .onConflictDoNothing()
     .returning();
 
   return data.id;
