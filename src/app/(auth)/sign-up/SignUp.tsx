@@ -77,8 +77,9 @@ export function SignUp() {
 
       router.push("/profile");
     } catch (err) {
-      setError("Something went wrong. Please try again.");
-      console.error(err);
+      setError(
+        err instanceof Error ? err.message : "An unknown error occurred"
+      );
     } finally {
       setIsLoading(false);
     }
